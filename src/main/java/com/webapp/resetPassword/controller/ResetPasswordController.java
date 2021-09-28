@@ -30,7 +30,7 @@ public class ResetPasswordController {
     }
 
     @PostMapping("/resetPassword")
-    public String resetPassword(User user) {
+    public String resetPassword(Model model, User user) {
         User existedUser = userRepo.findByEmail(user.getEmail());
 
         if(existedUser != null) {
@@ -39,6 +39,7 @@ public class ResetPasswordController {
             existedUser.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepo.save(existedUser);
 
+            model.addAttribute("user", existedUser);
             return "success";
         } else {
             return "error";

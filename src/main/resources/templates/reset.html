@@ -1,10 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Forgot Password?</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-darkness/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+<style>
+    body{
+        padding-top: 70px;
+        padding-bottom: 60px;
+    }
+    table{
+        border-collapse: separate;
+        border-spacing: 10px 10px;
+    }
+    input.fill{
+        width: 230px;
+    }
+    footer{
+        height: 50px;
+    }
+</style>
+<script>
+var check = function() {
+    var pwd1 = document.getElementById('password').value;
+    var pwd2 = document.getElementById('confirmPassword').value;
+    if (pwd1 == pwd2) {
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('message').innerHTML = 'Passwords match';
+        document.getElementById('submit').disabled = false;
+
+    } else {
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerHTML = 'Passwords do not match!';
+        document.getElementById('submit').disabled = true;
+
+    }
+}
+</script>
 <body>
-$END$
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Gumtree Take Home Test</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="page-header">
+        <h1>Forgot Password?</h1>
+    </div>
+    <div>
+        <form th:action="@{/resetPassword}" th:object="${user}" method="post">
+            <table>
+                <tr>
+                    <td><label for="email">Email</label></td>
+                    <td><input class="fill" th:field="*{email}" type="email" id="email" placeholder="Enter Email"
+                               pattern="[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password">New Password</label></td>
+                    <td><input class="fill" th:field="*{password}" type="password" id="password" placeholder="Enter Password" onkeyup="check();"
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Confirm Password</label></td>
+                    <td><input class="fill" th:field="*{password}" type="password" id="confirmPassword" placeholder="Confirm Password" onkeyup="check();"
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><div id="message"></div></td>
+                <tr>
+                    <td><input type="reset" value="Clear"/></td>
+                    <td><input type="submit" id="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<footer class="footer navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"><p class="text-muted">@Copyright 2021 Linna Yu</p></div>
+        </div>
+    </div>
+</footer>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

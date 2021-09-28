@@ -1,2 +1,22 @@
-package com.webapp.resetPassword.service;public class CustomUserDetailsService {
+package com.webapp.resetPassword.service;
+
+import com.webapp.resetPassword.entity.User;
+import com.webapp.resetPassword.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+public class CustomUserDetailsService implements UserDetailsService {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(s);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return new CustomUserDetails(user);
+    }
 }
