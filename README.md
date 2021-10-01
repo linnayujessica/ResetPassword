@@ -1,12 +1,3 @@
-# Reset/Change Password Application
-
-The service provides web page that user can change/reset password based on email.
-
-### Prerequisites
-
-* [Java 11 or 14 Runtime](https://www.oracle.com/java/technologies/downloads/)
-* [Docker](https://docs.docker.com/get-docker/)
-
 ### Execution
 
 First, unzip file:
